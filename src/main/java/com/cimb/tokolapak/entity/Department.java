@@ -1,5 +1,6 @@
 package com.cimb.tokolapak.entity;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -10,17 +11,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Department {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String name;
-	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy="department",cascade = CascadeType.ALL)
-	private Set<Employee> employees;
-	
-	
+	@JsonIgnore
+	private List<Employee> employees;	
 	public int getId() {
 		return id;
 	}
@@ -37,11 +38,11 @@ public class Department {
 		this.name = name;
 	}
 
-	public Set<Employee> getEmployees() {
+	public List<Employee> getEmployees() {
 		return employees;
 	}
 
-	public void setEmployees(Set<Employee> employees) {
+	public void setEmployees(List<Employee> employees) {
 		this.employees = employees;
 	}
 
